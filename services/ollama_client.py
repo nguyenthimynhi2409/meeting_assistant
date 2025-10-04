@@ -1,7 +1,6 @@
 import requests
 
-OLLAMA_API = "http://localhost:11434/api/generate"  # nếu dùng local
-# Nếu có endpoint cloud thì thay URL cloud ở đây
+OLLAMA_API = "http://localhost:11434/api/generate"  #local
 
 def summarize_memo(memo: str) -> str:
     payload = {

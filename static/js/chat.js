@@ -9,9 +9,12 @@ const meetingsUl = document.getElementById('meetingsUl');
 
 // ------------------- Chat -------------------
 function addMessage(text, sender) {
-  const msgDiv = document.createElement('div');
+const msgDiv = document.createElement('div');
   msgDiv.classList.add('message', sender);
-  msgDiv.textContent = text;
+
+  // Convert Markdown -> HTML
+  msgDiv.innerHTML = marked.parse(text);
+
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
@@ -53,7 +56,7 @@ async function uploadMemo() {
       body: JSON.stringify({ memo })
     });
     const data = await res.json();
-    addMessage(`Memo uploaded! Summary: ${data.summary}`, 'bot');
+    addMessage(`**Memo uploaded! Summary:**\n${data.summary}`, 'bot');
     memoInput.value = '';
     fetchMeetings();
   } catch (err) {
