@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meeting Assistant</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">Meeting Assistant</div>
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Ask a question..." />
+      <button id="sendBtn">Send</button>
+    </div>
+
+    <div class="memo-upload">
+      <textarea id="memoInput" placeholder="Paste memo here..." rows="4"></textarea>
+      <button id="uploadBtn">Upload Memo</button>
+    </div>
+
+    <div class="meeting-list" id="meetingList">
+      <h3>Past Meetings:</h3>
+      <ul id="meetingsUl"></ul>
+    </div>
+  </div>
+
+  <script src="/static/js/chat.js"></script>
+</body>
+</html>

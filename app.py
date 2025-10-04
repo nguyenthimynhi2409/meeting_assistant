@@ -1,4 +1,7 @@
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Request, Body
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 import uuid
 
@@ -7,12 +10,26 @@ from services.chroma_client import save_meeting, search_context, list_meetings
 
 app = FastAPI()
 
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
 class MemoRequest(BaseModel):
     memo: str
 
 class QuestionRequest(BaseModel):
     question: str
 
+# ------------------------------
+# Frontend page
+# ------------------------------
+@app.get("/", response_class=HTMLResponse)
+def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+# ------------------------------
+# API endpoints
+# ------------------------------
 @app.post("/upload_memo")
 def upload_memo(req: MemoRequest):
     meeting_id = str(uuid.uuid4())
